@@ -1,0 +1,50 @@
+# syntax=docker/dockerfile:1
+
+# 開発環境用Dockerfile
+ARG RUBY_VERSION=3.3.10
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+# 必要なパッケージをインストール
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    curl \
+    git \
+    libpq-dev \
+    libvips \
+    libyaml-dev \
+    pkg-config \
+    postgresql-client && \
+    rm -rf /var/lib/apt/lists/*
+
+# Node.js 20.xをインストール
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+# Yarnをインストール
+RUN npm install -g yarn
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# Bundlerをインストール
+RUN gem install bundler
+
+# Gemfileをコピーして依存関係をインストール
+COPY Gemfile Gemfile.lock ./
+RUN bundle install
+
+# entrypointスクリプトをコピー
+COPY bin/docker-entrypoint /usr/bin/
+RUN chmod +x /usr/bin/docker-entrypoint
+ENTRYPOINT ["docker-entrypoint"]
+
+# アプリケーションコードをコピー
+COPY . .
+
+# ポート3000を公開
+EXPOSE 3000
+
+# Railsサーバーを起動
+CMD ["rails", "server", "-b", "0.0.0.0"]
