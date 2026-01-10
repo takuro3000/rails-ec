@@ -1,0 +1,32 @@
+# Rails EC プロジェクト
+
+## プロジェクト概要
+シンプルで拡張性の高いECサイトのMVP（最小機能製品）を構築する。
+
+## 技術スタック
+- Ruby 3.3.x / Rails 8.1.2
+- PostgreSQL 16.x
+- Hotwire (Turbo + Stimulus)
+- Tailwind CSS
+- Stripe決済（Checkout Session）
+- Solid Queue / Solid Cache / Solid Cable
+
+## 重要なドキュメント
+コード生成・修正時は必ず以下のドキュメントを参照すること：
+- `docs/requirements.md` - 要件定義書
+- `docs/architecture.md` - アーキテクチャ設計書
+- `docs/db_schema.md` - データベース設計書
+
+## コーディング規約
+- RuboCop設定に従う
+- サービスクラスは `app/services/` に配置
+- 日本語でコメント・コミットメッセージを記述
+- Turbo StreamsでのUI更新を優先
+- N+1クエリ防止
+
+## 認証設計
+- 顧客認証: Rails 8組み込み認証
+- 管理者認証: 顧客とは完全分離
+
+## 注意事項
+- セキュリティを常に意識
