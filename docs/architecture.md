@@ -250,12 +250,21 @@ rails-ec/
 │   └── tasks/
 │       └── admin.rake                      # 管理者作成タスク
 │
-└── test/                                   # テストファイル
-    ├── controllers/
-    ├── models/
-    ├── integration/
-    ├── mailers/
-    └── services/
+└── spec/                                   # テストファイル（RSpec）
+    ├── rails_helper.rb                     # Rails用ヘルパー
+    ├── spec_helper.rb                      # RSpec設定
+    ├── factories/                          # FactoryBot定義
+    │   ├── users.rb
+    │   ├── products.rb
+    │   ├── categories.rb
+    │   ├── orders.rb
+    │   └── addresses.rb
+    ├── models/                             # モデルスペック
+    ├── requests/                           # リクエストスペック（統合テスト）
+    ├── services/                           # サービススペック
+    ├── mailers/                            # メーラースペック
+    └── support/                            # テストサポートファイル
+        └── factory_bot.rb
 ```
 
 ---
@@ -920,7 +929,7 @@ jobs:
         with:
           bundler-cache: true
       - run: bin/rails db:setup
-      - run: bin/rails test
+      - run: bundle exec rspec
       - run: bin/rubocop
       - run: bin/brakeman
 ```
