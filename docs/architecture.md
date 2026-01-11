@@ -814,9 +814,6 @@ gem "stripe"
 # ページネーション
 gem "pagy"
 
-# フォームヘルパー
-gem "simple_form"
-
 # CSSフレームワーク
 gem "tailwindcss-rails"
 
