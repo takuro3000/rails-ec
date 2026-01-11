@@ -1,0 +1,14 @@
+<div class="max-w-4xl mx-auto">
+  <h1 class="text-3xl font-bold text-gray-900 mb-8">Rails EC</h1>
+
+  <p class="text-gray-600 mb-8">
+    シンプルで拡張性の高いECサイトへようこそ。
+  </p>
+
+  <% unless signed_in? %>
+    <div class="flex gap-4">
+      <%= link_to "会員登録", sign_up_path,
+                  class: "bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" %>
+    </div>
+  <% end %>
+</div>
