@@ -5,10 +5,18 @@
     シンプルで拡張性の高いECサイトへようこそ。
   </p>
 
-  <% unless signed_in? %>
+  <% if signed_in? %>
+    <div class="bg-white rounded-lg shadow p-6">
+      <p class="text-gray-700">
+        <span class="font-semibold"><%= current_user.name %></span> さん、ようこそ！
+      </p>
+    </div>
+  <% else %>
     <div class="flex gap-4">
       <%= link_to "会員登録", sign_up_path,
                   class: "bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" %>
+      <%= link_to "ログイン", sign_in_path,
+                  class: "bg-white text-gray-700 px-6 py-3 rounded-lg border border-gray-300 hover:bg-gray-50 transition" %>
     </div>
   <% end %>
 </div>
